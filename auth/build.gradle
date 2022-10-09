@@ -1,0 +1,100 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdk rootProject.compileSdkVersion
+    flavorDimensions "version"
+    defaultConfig {
+        minSdk rootProject.minSdkVersion
+        targetSdk rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors{
+        def localProperties = new Properties()
+        localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
+        staging {
+            dimension "version"
+            buildConfigField "String", "AUTH_API", "\""+localProperties['stagingApi']+"\""
+            buildConfigField "String", "GOOGLE_AUTH_ID", "\""+localProperties['stagingGoogleAuthId']+"\""
+            buildConfigField "String", "API_KEY", "\""+localProperties['stagingApiKey']+"\""
+            manifestPlaceholders = [hostName: localProperties['stagingHostName']]
+        }
+
+        production {
+            dimension "version"
+            buildConfigField "String", "AUTH_API", "\""+localProperties['productionApi']+"\""
+            buildConfigField "String", "GOOGLE_AUTH_ID", "\""+localProperties['productionGoogleAuthId']+"\""
+            buildConfigField "String", "API_KEY", "\""+localProperties['productionApiKey']+"\""
+            manifestPlaceholders = [hostName: localProperties['productionHostName']]
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation project(path: ':core')
+
+    //rxjava2
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation("com.squareup.okhttp3:okhttp:4.2.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.2.2")
+    //dagger
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-compiler:2.38.1"
+
+    //chucker
+    stagingImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    productionImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+
+    //room
+    api "androidx.room:room-runtime:$roomVersion"
+    api "androidx.room:room-rxjava2:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    //google signin
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+}

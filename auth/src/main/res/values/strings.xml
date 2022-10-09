@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_unathorized_google">Login google failed</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="button_login">Login</string>
+    <string name="message_error_empty_email">Email empty</string>
+    <string name="message_error_empty_password">Password empty</string>
+    <string name="message_unathorized">Wrong email or password</string>
+    <string name="button_register">Register</string>
+    <string name="email_format_invalid">Invalid email</string>
+    <string name="password_cant_less_than_minlength_characters">Password cannot less than %d characters</string>
+    <string name="password_must_contains_special_character">Password must contain special character</string>
+    <string name="password_and_confirmation_password_doesnt_match">Password and confirmation password doesn\'t match</string>
+    <string name="label_password_confirmation">Password Confirmation</string>
+    <string name="password_must_contains_capital_character">Password must contain capital character</string>
+    <string name="email_have_been_registered">Email have been registered</string>
+    <string name="email_verification">Email Verification</string>
+    <string name="email_verification_description">Verifcation email have sent to %1$s, please open your email and click the verification link</string>
+    <string name="button_resend_verication_email">Resend verification email</string>
+    <string name="skip">Skip</string>
+    <string name="resend_after">Resend after %1$s</string>
+    <string name="message_failed_verify_email">Verify email failed</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="label_or">or</string>
+    <string name="button_send">Send</string>
+    <string name="description_forgot_password">Please enter your email, we will send link to your email for you to reset your password link.</string>
+    <string name="message_reset_link_sent">Link for reset password have been sent.</string>
+    <string name="email_have_not_been_registered">Email have not been registered</string>
+    <string name="button_submit">Submit</string>
+    <string name="reset_password_link_invalid">Reset password link invalid</string>
+    <string name="message_wrong_password">Wrong password</string>
+    <string name="label_current_password">Current Password</string>
+    <string name="label_new_password">New password</string>
+    <string name="label_new_password_confirmation">New password confirmation</string>
+    <string name="message_change_password_success">Change password success</string>
+</resources>

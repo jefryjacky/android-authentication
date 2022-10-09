@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="btnNormal">#FF6200EE</color>
+    <color name="btnDisable">#336200EE</color>
+    <color name="btnPressColor">#88BB86FC</color>
+    <color name="btnFocusColor">#886200EE</color>
+
+</resources>
