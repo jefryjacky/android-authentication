@@ -4,13 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import androidx.activity.ComponentActivity
 import com.jefryjacky.core.R
 import com.jefryjacky.core.di.ViewModelFactory
 import javax.inject.Inject
 
-abstract class BaseComposeActivity : AppCompatActivity() {
+abstract class BaseComposeActivity : ComponentActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
