@@ -11,6 +11,9 @@ import javax.inject.Inject
 
 abstract class BaseComposeActivity : ComponentActivity() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
