@@ -65,6 +65,10 @@ class UserRepository @Inject constructor(
             .subscribeOn(schedulers.netWorkThread())
     }
 
+    fun getToken():UserToken?{
+        return userDatabase.getToken()
+    }
+
     fun isLogin():Maybe<UserToken>{
         return Maybe.create<UserToken> {
             val token = userDatabase.getToken()
