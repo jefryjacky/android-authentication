@@ -1,0 +1,30 @@
+apply plugin: 'maven-publish'
+
+
+def getArtifactFilePath() {
+    return "$buildDir/outputs/aar/design-release.aar"
+}
+
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId 'com.jefryjacky' // com.company.project
+            artifactId 'core' // my-component-library
+            version '1.0.0' // 1.0.0-SNAPSHOT
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "https://maven.pkg.github.com/jefryjacky/android-authentication"
+            name "GitHubPackages"
+            credentials {
+                username = 'github packages access'
+                password = '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'
+            }
+        }
+    }
+}
