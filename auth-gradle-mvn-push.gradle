@@ -10,10 +10,10 @@ publishing {
     publications {
         release(MavenPublication) {
             groupId 'com.jefryjacky' // com.company.project
-            artifactId 'core' // my-component-library
-            version '1.0.0' // 1.0.0-SNAPSHOT
+            artifactId 'auth' // my-component-library
+            version '1.0.4' // 1.0.0-SNAPSHOT
             afterEvaluate {
-                from components.release
+                from components.custom
             }
         }
     }

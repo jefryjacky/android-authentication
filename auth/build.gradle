@@ -55,6 +55,24 @@ android {
         viewBinding true
     }
     namespace 'com.jefryjacky.auth'
+
+    publishing {
+        multipleVariants('custom') {
+            includeBuildTypeValues('debug','release')
+            includeFlavorDimensionAndValues(
+                    /*dimension =*/ 'version',
+                    /*values =*/ 'staging', 'production'
+            )
+        }
+    }
+
+    configurations {
+        // Initializes a placeholder for the freeDebugImplementation dependency configuration.
+        stagingDebugImplementation {}
+        stagingReleaseImplementation {}
+        productionDebugImplementation {}
+        productionReleaseImplementation {}
+    }
 }
 
 dependencies {
@@ -82,8 +100,10 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
     //chucker
-    stagingImplementation "com.github.chuckerteam.chucker:library:3.5.2"
-    productionImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+    stagingDebugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    productionDebugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    stagingReleaseImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    productionReleaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 
     //room
     api "androidx.room:room-runtime:$roomVersion"
@@ -97,3 +117,5 @@ dependencies {
 
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 }
+
+apply from:"$rootDir/auth-gradle-mvn-push.gradle"
