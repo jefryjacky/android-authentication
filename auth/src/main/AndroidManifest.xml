@@ -18,7 +18,7 @@
                 <data
                     android:host="${hostName}"
                     android:pathPrefix="/emailverification"
-                    android:scheme="http" />
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.welcome.WelcomeActivity"
@@ -37,7 +37,7 @@
                 <data
                     android:host="${hostName}"
                     android:pathPrefix="/forgotpassword"
-                    android:scheme="http" />
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.changepassword.ChangePasswordActivity"
