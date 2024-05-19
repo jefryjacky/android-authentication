@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
@@ -21,10 +21,23 @@ android {
         multiDexEnabled true
     }
 
+    signingConfigs{
+        config{
+            def localProperties = new Properties()
+            localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
+            storeFile file('keystore/restaurantandroidkeystore')
+            keyAlias localProperties['keyAlias']
+            storePassword localProperties['storePassword']
+            keyPassword localProperties['keyPassword']
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 
@@ -66,7 +79,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation project(path: ':core')
     implementation project(path: ':auth')
-    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    ksp "com.github.bumptech.glide:compiler:$glideVersion"
     //rxjava2
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
@@ -77,20 +90,17 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.2.2")
     implementation("com.squareup.okhttp3:logging-interceptor:4.2.2")
     //dagger
-    implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-compiler:2.38.1"
+    implementation "com.google.dagger:hilt-android:2.44"
+    ksp "com.google.dagger:hilt-compiler:2.44"
     //navigation component
     api "androidx.navigation:navigation-fragment-ktx:$nav_version"
     api "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     //room
-    api "androidx.room:room-runtime:$roomVersion"
-    api "androidx.room:room-rxjava2:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
+//    api "androidx.room:room-runtime:$roomVersion"
+//    api "androidx.room:room-rxjava2:$roomVersion"
+//    kapt "androidx.room:room-compiler:$roomVersion"
 
-    //chucker
-    stagingImplementation "com.github.chuckerteam.chucker:library:3.5.2"
-    productionImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

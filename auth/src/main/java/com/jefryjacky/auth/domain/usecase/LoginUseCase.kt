@@ -1,6 +1,7 @@
 package com.jefryjacky.auth.domain.usecase
 
 
+import android.util.Log
 import com.jefryjacky.auth.domain.entity.User
 import com.jefryjacky.core.domain.exception.InvetisApiException
 import com.jefryjacky.auth.domain.message.Message
@@ -27,6 +28,7 @@ class LoginUseCase @Inject constructor(
                 .subscribe({
                     callback.success(Output(it))
                 }, {
+                    Log.d("jefryjacky", it.message?:"")
                     checkError(it)
                 })
             )

@@ -6,10 +6,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10'
         classpath 'com.google.gms:google-services:4.3.10'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.4.1'
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.1'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,14 +21,14 @@ task clean(type: Delete) {
 
 ext{
     minSdkVersion = 21
-    targetSdkVersion = 31
-    compileSdkVersion = 31
+    targetSdkVersion = 34
+    compileSdkVersion = 34
 
     daggerVersion = '2.25.2'
     rxJavaVersion = '2.2.0'
     rxAndroidVersion = '2.1.1'
-    glideVersion = '4.11.0'
+    glideVersion = '4.16.0'
     nav_version = "2.3.5"
     fragment_version = "1.2.4"
-    roomVersion = '2.2.5'
+    roomVersion = '2.6.1'
 }
