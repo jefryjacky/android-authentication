@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'com.google.devtools.ksp' version '1.8.10-1.0.9' apply true
+    id 'com.google.devtools.ksp' version '1.9.10-1.0.13'
+    id "com.google.dagger.hilt.android" version "2.48.1"
 }
 
 android {
@@ -22,11 +23,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11.toString()
-        targetCompatibility JavaVersion.VERSION_11.toString()
+        sourceCompatibility JavaVersion.VERSION_17.toString()
+        targetCompatibility JavaVersion.VERSION_17.toString()
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         viewBinding true
@@ -46,8 +47,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.12.0'
     //dagger
-    implementation "com.google.dagger:hilt-android:2.44"
-    ksp "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:2.48.1"
+    ksp "com.google.dagger:hilt-compiler:2.48.1"
+    ksp "com.google.dagger:hilt-android-compiler:2.48.1"
     //rxjava
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     //retrofit

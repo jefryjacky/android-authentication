@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'com.google.devtools.ksp' version '1.8.10-1.0.9' apply true
-    id 'dagger.hilt.android.plugin'
+    id 'com.google.devtools.ksp' version '1.9.10-1.0.13'
+    id "com.google.dagger.hilt.android" version "2.48.1"
 }
 
 android {
@@ -14,6 +14,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        ksp{
+            arg(new RoomSchemaArgProvider(new File(projectDir, "schemas")))
+        }
     }
 
     buildTypes {
@@ -45,11 +49,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11.toString()
-        targetCompatibility JavaVersion.VERSION_11.toString()
+        sourceCompatibility JavaVersion.VERSION_17.toString()
+        targetCompatibility JavaVersion.VERSION_17.toString()
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         viewBinding true
@@ -91,13 +95,14 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     //dagger
-    implementation "com.google.dagger:hilt-android:2.44"
-    ksp "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:2.48.1"
+    ksp "com.google.dagger:hilt-compiler:2.48.1"
+    ksp "com.google.dagger:hilt-android-compiler:2.48.1"
 
     //chucker
     stagingDebugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
@@ -119,3 +124,21 @@ dependencies {
 }
 
 apply from:"$rootDir/auth-gradle-mvn-push.gradle"
+
+class RoomSchemaArgProvider implements CommandLineArgumentProvider {
+
+    @InputDirectory
+    @PathSensitive(PathSensitivity.RELATIVE)
+    File schemaDir
+
+    RoomSchemaArgProvider(File schemaDir) {
+        this.schemaDir = schemaDir
+    }
+
+    @Override
+    Iterable<String> asArguments() {
+        // Note: If you're using KAPT and javac, change the line below to
+        // return ["-Aroom.schemaLocation=${schemaDir.path}".toString()].
+        return ["room.schemaLocation=${schemaDir.path}".toString()]
+    }
+}

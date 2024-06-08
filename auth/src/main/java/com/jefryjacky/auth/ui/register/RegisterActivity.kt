@@ -15,7 +15,7 @@ import javax.inject.Inject
 class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
     private val viewModel: RegisterViewModel by viewModels {viewModelFactory}
-    @Inject lateinit var router:RegisterRoute
+    var router:RegisterRoute?=null
 
     override fun inflate(): ActivityRegisterBinding {
         return ActivityRegisterBinding.inflate(layoutInflater)
@@ -50,7 +50,7 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
         viewModel.registerSuccessEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                router.next(this, it)
+                router?.next(this, it)
             }
         }
     }

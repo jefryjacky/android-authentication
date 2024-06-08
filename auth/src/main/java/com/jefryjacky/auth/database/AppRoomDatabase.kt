@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.jefryjacky.auth.database.user.UserDao
 import com.jefryjacky.auth.database.user.entity.UserTokenDb
 
-@Database(entities = [UserTokenDb::class], version = 1)
+@Database(entities = [UserTokenDb::class], version = 1, exportSchema = true)
 abstract class AppRoomDatabase:RoomDatabase() {
     abstract fun userDao(): UserDao
 

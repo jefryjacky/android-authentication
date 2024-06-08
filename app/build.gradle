@@ -1,10 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'com.google.devtools.ksp' version '1.8.10-1.0.9' apply true
+    id 'com.google.devtools.ksp' version '1.9.10-1.0.13'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
-    id 'dagger.hilt.android.plugin'
+    id "com.google.dagger.hilt.android" version "2.48.1"
 }
 
 android {
@@ -53,11 +53,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11.toString()
-        targetCompatibility JavaVersion.VERSION_11.toString()
+        sourceCompatibility JavaVersion.VERSION_17.toString()
+        targetCompatibility JavaVersion.VERSION_17.toString()
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     buildFeatures {
@@ -90,8 +90,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     //dagger
-    implementation "com.google.dagger:hilt-android:2.44"
-    ksp "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:2.48.1"
+    ksp "com.google.dagger:hilt-compiler:2.48.1"
     //navigation component
     api "androidx.navigation:navigation-fragment-ktx:$nav_version"
     api "androidx.navigation:navigation-ui-ktx:$nav_version"

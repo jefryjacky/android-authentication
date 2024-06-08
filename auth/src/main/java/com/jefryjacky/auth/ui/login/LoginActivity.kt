@@ -23,7 +23,7 @@ import javax.inject.Inject
 class LoginActivity: BaseActivity<ActivityLoginBinding>() {
 
     private val viewmodel: LoginViewModel by viewModels { viewModelFactory }
-    @Inject lateinit var router:LoginRoute
+    var router:LoginRoute? = null
 
     private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
     ) {
@@ -31,7 +31,7 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
         try {
             // Google Sign In was successful, authenticate with Firebase
             val account = task.getResult(ApiException::class.java)!!
-            viewmodel.loginGoogle(account.idToken)
+            viewmodel.loginGoogle(account.idToken!!)
         } catch (e: ApiException) {
             // Google Sign In failed, update UI appropriately
             Snackbar.make(binding.root, getString(R.string.message_unathorized_google), Snackbar.LENGTH_INDEFINITE)
@@ -88,7 +88,7 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
 
         viewmodel.loginSuccessEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let { user->
-                router.next(this, user)
+                router?.next(this, user)
             }
         }
 

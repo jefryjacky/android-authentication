@@ -1,7 +1,6 @@
 package com.authentication.di.module
 
 import android.content.Context
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.authentication.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -51,7 +50,7 @@ class NetworkModule {
         }
 
         if(BuildConfig.DEBUG || BuildConfig.FLAVOR == "staging"){
-            builder.addInterceptor(ChuckerInterceptor.Builder(context).build())
+           // builder.addInterceptor(ChuckerInterceptor.Builder(context).build())
         }
 
         builder.addInterceptor {
