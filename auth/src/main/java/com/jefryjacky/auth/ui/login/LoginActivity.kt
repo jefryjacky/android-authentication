@@ -23,7 +23,6 @@ import javax.inject.Inject
 class LoginActivity: BaseActivity<ActivityLoginBinding>() {
 
     private val viewmodel: LoginViewModel by viewModels { viewModelFactory }
-    var router:LoginRoute? = null
 
     private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
     ) {
@@ -88,7 +87,7 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
 
         viewmodel.loginSuccessEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let { user->
-                router?.next(this, user)
+                viewmodel.navigateNext(this, user)
             }
         }
 

@@ -23,7 +23,6 @@ import javax.inject.Inject
 class EmailVerificationActivity: BaseActivity<ActivityEmailVerificationBinding>() {
 
     private val viewModel: EmailVerificationViewModel by viewModels { viewModelFactory }
-    var router:EmailVerificationRoute? = null
 
     val countDownTimer = object:CountDownTimer(300000, 1000){
         override fun onTick(millisUntilFinished: Long) {
@@ -79,7 +78,7 @@ class EmailVerificationActivity: BaseActivity<ActivityEmailVerificationBinding>(
     private fun initObserver(){
         viewModel.successVerifyEmailEvent.observe(this,{
             it.contentIfNotHaveBeenHandle?.let {
-                router?.next(this)
+                viewModel.navigateNext(this)
             }
         })
 

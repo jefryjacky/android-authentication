@@ -1,5 +1,6 @@
 package com.jefryjacky.auth.ui.register
 
+import android.app.Activity
 import androidx.lifecycle.MutableLiveData
 import com.jefryjacky.core.base.BaseViewModel
 import com.jefryjacky.core.domain.usecase.BaseUseCase
@@ -8,7 +9,8 @@ import com.jefyjacky.auth.ui.Event
 import javax.inject.Inject
 
 class RegisterViewModel @Inject constructor(
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val registerRoute:RegisterRoute
 ): BaseViewModel() {
 
     init{
@@ -40,5 +42,9 @@ class RegisterViewModel @Inject constructor(
                 setLoading(false)
             }
         })
+    }
+
+    fun navigateNext(activity: Activity, email: String){
+        registerRoute.next(activity, email)
     }
 }

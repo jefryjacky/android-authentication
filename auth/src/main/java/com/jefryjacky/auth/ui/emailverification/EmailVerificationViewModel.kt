@@ -1,5 +1,6 @@
 package com.jefryjacky.auth.ui.emailverification
 
+import android.app.Activity
 import androidx.lifecycle.MutableLiveData
 import com.jefryjacky.auth.domain.usecase.IsLoginUseCase
 import com.jefryjacky.auth.domain.usecase.RequestEmailVerificationUseCase
@@ -12,7 +13,8 @@ import javax.inject.Inject
 class EmailVerificationViewModel @Inject constructor(
     private val requestEmailVerificationUseCase: RequestEmailVerificationUseCase,
     private val verifyEmailUseCase: VerifyEmailUseCase,
-    private val isLoginUseCase: IsLoginUseCase
+    private val isLoginUseCase: IsLoginUseCase,
+    private val emailVerificationRoute:EmailVerificationRoute
 ):BaseViewModel() {
 
     val successVerifyEmailEvent = MutableLiveData<Event<Any>>()
@@ -55,5 +57,9 @@ class EmailVerificationViewModel @Inject constructor(
                 navigateToLoginViewEvent.value = Event(Any())
             }
         })
+    }
+
+    fun navigateNext(activity: Activity){
+        emailVerificationRoute.next(activity)
     }
 }

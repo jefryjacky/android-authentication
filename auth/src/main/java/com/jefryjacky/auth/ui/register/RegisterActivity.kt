@@ -15,7 +15,6 @@ import javax.inject.Inject
 class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
     private val viewModel: RegisterViewModel by viewModels {viewModelFactory}
-    var router:RegisterRoute?=null
 
     override fun inflate(): ActivityRegisterBinding {
         return ActivityRegisterBinding.inflate(layoutInflater)
@@ -50,7 +49,7 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
         viewModel.registerSuccessEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                router?.next(this, it)
+                viewModel.navigateNext(this, it)
             }
         }
     }

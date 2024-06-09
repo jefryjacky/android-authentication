@@ -1,5 +1,6 @@
 package com.jefryjacky.auth.ui.login
 
+import android.app.Activity
 import androidx.lifecycle.MutableLiveData
 import com.jefryjacky.auth.domain.entity.User
 import com.jefryjacky.core.base.BaseViewModel
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val loginGoogleUseCase: LoginGoogleUseCase
+    private val loginGoogleUseCase: LoginGoogleUseCase,
+    private val loginRoute:LoginRoute
 ): BaseViewModel() {
 
     init {
@@ -62,5 +64,9 @@ class LoginViewModel @Inject constructor(
                 setLoading(false)
             }
         })
+    }
+
+    fun navigateNext(activity:Activity, user:User){
+        loginRoute.next(activity, user)
     }
 }
