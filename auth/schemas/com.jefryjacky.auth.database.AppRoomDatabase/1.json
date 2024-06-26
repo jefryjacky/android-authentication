@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "424eae838d8399947ccee2a203f0af48",
+    "entities": [
+      {
+        "tableName": "UserTokenDb",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `access_token` TEXT NOT NULL, `refresh_token` TEXT NOT NULL, `expired_date` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accessToken",
+            "columnName": "access_token",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "refreshToken",
+            "columnName": "refresh_token",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expiredDate",
+            "columnName": "expired_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '424eae838d8399947ccee2a203f0af48')"
+    ]
+  }
+}

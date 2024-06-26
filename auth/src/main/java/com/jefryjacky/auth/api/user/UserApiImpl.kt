@@ -1,5 +1,6 @@
 package com.jefryjacky.auth.api.user
 
+import android.util.Log
 import com.jefryjacky.auth.domain.entity.User
 import com.jefryjacky.auth.domain.entity.UserToken
 import com.jefryjacky.auth.domain.repository.api.UserApi
@@ -43,7 +44,11 @@ class UserApiImpl @Inject constructor(
     }
 
     override fun verifyEmail(token: String): Single<UserToken> {
-        return userService.verifyEmail(token).map {
+        return userService.verifyEmail(token)
+            .doOnError {
+                Log.d("jefryjacky", "api ${it.stackTraceToString()}")
+            }.map {
+                Log.d("jefryjacky", "map token response")
             it.toUserToken()
         }
     }

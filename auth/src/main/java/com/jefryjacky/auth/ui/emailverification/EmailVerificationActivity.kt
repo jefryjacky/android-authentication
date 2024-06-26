@@ -53,7 +53,7 @@ class EmailVerificationActivity: BaseActivity<ActivityEmailVerificationBinding>(
 
         if(Intent.ACTION_VIEW == appLinkAction){
             token?.let {
-                viewModel.verifyEmail(token)
+                viewModel.verifyEmail(this, token)
             }
         }
     }

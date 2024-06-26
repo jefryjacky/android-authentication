@@ -1,5 +1,8 @@
 package com.jefryjacky.auth.domain.usecase
 
+import android.app.Activity
+import android.util.Log
+import android.widget.Toast
 import com.jefryjacky.auth.domain.entity.User
 import com.jefryjacky.auth.domain.repository.UserRepository
 import com.jefryjacky.core.domain.scheduler.Schedulers
@@ -12,7 +15,7 @@ class VerifyEmailUseCase @Inject constructor(
     private val schedulers: Schedulers
 ) : BaseUseCase() {
 
-    fun execute(input: Input, callback: Callback) {
+    fun execute(activity:Activity ,input: Input, callback: Callback) {
         val encodedToken = URLEncoder.encode(input.token, "utf-8")
         disposables.add(userRepository.verifyEmail(encodedToken)
             .andThen(userRepository.getUser())
@@ -21,6 +24,7 @@ class VerifyEmailUseCase @Inject constructor(
                 val output = Output(it)
                 callback.success(output)
             }, {
+                Log.e("jefryjacky", it.stackTraceToString())
                 checkError(it)
             })
         )

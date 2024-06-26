@@ -58,7 +58,7 @@ class UserRepository @Inject constructor(
         return userApi.verifyEmail(token)
             .doOnSuccess {
                 Completable.fromCallable {
-                    userDatabase.saveToken(it)
+                   userDatabase.saveToken(it)
                 }.subscribeOn(schedulers.diskThread())
                     .subscribe()
             }.ignoreElement()
