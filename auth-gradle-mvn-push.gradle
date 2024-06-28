@@ -11,7 +11,7 @@ publishing {
         release(MavenPublication) {
             groupId 'com.jefryjacky' // com.company.project
             artifactId 'auth' // my-component-library
-            version '1.0.6' // 1.0.0-SNAPSHOT
+            version '1.0.7' // 1.0.0-SNAPSHOT
             afterEvaluate {
                 from components.custom
             }
