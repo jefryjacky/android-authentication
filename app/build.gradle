@@ -20,24 +20,24 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-
-    signingConfigs{
-        config{
-            def localProperties = new Properties()
-            localProperties.load(new FileInputStream(rootProject.file("local.properties")))
-
-            storeFile file('keystore/restaurantandroidkeystore')
-            keyAlias localProperties['keyAlias']
-            storePassword localProperties['storePassword']
-            keyPassword localProperties['keyPassword']
-        }
-    }
+//
+//    signingConfigs{
+//        config{
+//            def localProperties = new Properties()
+//            localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+//
+//            storeFile file('keystore/keystore')
+//            keyAlias localProperties['keyAlias']
+//            storePassword localProperties['storePassword']
+//            keyPassword localProperties['keyPassword']
+//        }
+//    }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
         }
     }
 
