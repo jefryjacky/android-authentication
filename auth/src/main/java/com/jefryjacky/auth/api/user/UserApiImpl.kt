@@ -66,4 +66,29 @@ class UserApiImpl @Inject constructor(
     override fun updatePassowrd(password: String, newPassword: String): Completable {
         return userService.updatePassword(password, newPassword)
     }
+
+    override fun requestEmailVerificationOtp(email: String): Completable {
+        return userService.requestEmailVerification(email)
+    }
+
+    override fun verifyEmailOtp(
+        email: String,
+        otp: String
+    ): Single<UserToken> {
+        return userService.verifyEmailOtp(email, otp)
+            .map {
+                it.toUserToken()
+            }
+    }
+
+    override fun requestChangePasswordOtp(email: String): Completable {
+        return userService.requestChangePasswordOtp(email)
+    }
+
+    override fun updatePasswordByOtp(
+        email: String,
+        otp: String
+    ): Completable {
+        return userService.updatePasswordByOtp(email, otp)
+    }
 }

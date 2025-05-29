@@ -49,4 +49,17 @@ interface UserService {
     @POST("/api/password/update")
     @FormUrlEncoded
     fun updatePassword(@Field("password") password:String, @Field("new_password") newPassword:String):Completable
+
+    @POST("/api/user//requestemailverification/otp")
+    @FormUrlEncoded
+    fun requestEmailVerificationOtp(@Field("email") email:String): Completable
+
+    @POST("/api/user//verify/email/otp")
+    fun verifyEmailOtp(@Field("email") email: String, @Field("otp") otp:String):Single<TokenResponse>
+
+    @POST("/api/password/requestchangepassword/otp")
+    fun requestChangePasswordOtp(@Field("email") email:String): Completable
+
+    @POST("/api/password/verify/changepassword/otp")
+    fun updatePasswordByOtp(@Field("email") email: String, @Field("otp") otp:String): Completable
 }

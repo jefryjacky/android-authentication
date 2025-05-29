@@ -106,4 +106,30 @@ class UserRepository @Inject constructor(
         return userApi.updatePassowrd(password, newPassword)
             .subscribeOn(schedulers.netWorkThread())
     }
+
+    fun requestEmailVerificationOtp(email:String): Completable{
+        return userApi.requestEmailVerification(email)
+            .subscribeOn(schedulers.netWorkThread())
+    }
+
+    fun verifyEmailOtp(email: String, otp:String): Completable {
+        return userApi.verifyEmailOtp(email, otp)
+            .doOnSuccess {
+                Completable.fromCallable {
+                    userDatabase.saveToken(it)
+                }.subscribeOn(schedulers.diskThread())
+                    .subscribe()
+            }.ignoreElement()
+            .subscribeOn(schedulers.netWorkThread())
+    }
+
+    fun requestChangePasswordOtp(email:String): Completable{
+        return userApi.requestChangePasswordOtp(email)
+            .subscribeOn(schedulers.netWorkThread())
+    }
+
+    fun updatePasswordByOtp(email:String, otp:String): Completable{
+        return userApi.updatePasswordByOtp(email, otp)
+            .subscribeOn(schedulers.netWorkThread())
+    }
 }

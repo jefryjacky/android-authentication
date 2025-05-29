@@ -6,43 +6,53 @@ import com.jefryjacky.auth.domain.repository.UserRepository
 import com.jefryjacky.core.domain.exception.InvetisApiException
 import com.jefryjacky.core.domain.scheduler.Schedulers
 import com.jefryjacky.core.domain.usecase.BaseUseCase
-import java.net.URLEncoder
 import java.util.regex.Pattern
 import javax.inject.Inject
 
-class UpdatePasswordByTokenUseCase @Inject constructor(
+class UpdatePasswordByOtpUseCase @Inject constructor(
     private val userRepository: UserRepository,
     private val schedulers: Schedulers,
     private val messages: Message
-):BaseUseCase() {
+): BaseUseCase() {
 
-    fun execute(input:Input, callback: Callback){
-        val encodedToken = URLEncoder.encode(input.token, "utf-8")
-        if(canExecute(input, callback)){
+    fun execute(input: Input, callback: Callback){
+        if(canExecute(input, callback)) {
             executing = true
-            disposables.add(userRepository.updatePasswordByToken(input.password, encodedToken)
+            disposables.add(
+                userRepository.updatePasswordByOtp(input.email, input.otp)
                 .doFinally { executing = false }
                 .observeOn(schedulers.mainThread())
                 .subscribe({
                     callback.success()
-                },{
-                    if(it is InvetisApiException){
-                        if(it.code == 403){
-                            val errors = mutableListOf<ResetPasswordError>()
-                            errors.add(ResetPasswordError.TokenError(messages.messageErrorsResetPasswordLinkInvalid()))
+                }, {
+                    if (it is InvetisApiException) {
+                        if (it.code == 403) {
+                            val errors =
+                                mutableListOf<UpdatePasswordByTokenUseCase.ResetPasswordError>()
+                            errors.add(
+                                UpdatePasswordByTokenUseCase.ResetPasswordError.TokenError(
+                                    messages.messageErrorsResetPasswordLinkInvalid()
+                                )
+                            )
                             callback.errors(errors)
                         }
                     } else {
                         checkError(it)
                     }
-                }))
+                })
+            )
         }
     }
 
-    private fun canExecute(input:Input, callback: Callback):Boolean{
+    private fun canExecute(input: Input, callback: Callback):Boolean{
         if(executing) return false
         val errors = mutableListOf<Error>()
         val specialCharPattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE)
+        when {
+            input.email.isBlank() -> {
+                errors.add(ResetPasswordError.EmailError(messages.messageErrorEmptyEmail()))
+            }
+            }
         when {
             input.password.isBlank() -> {
                 errors.add(ResetPasswordError.PasswordError(messages.messageErrorPasswordEmpty()))
@@ -78,18 +88,20 @@ class UpdatePasswordByTokenUseCase @Inject constructor(
         return errors.isEmpty()
     }
 
-    data class Input(
-        val token:String,
-        val password:String,
-        val passwordConfirmation:String
-    )
-
     interface Callback:BaseCallback{
         fun success()
     }
 
+    data class Input(
+        val email: String,
+        val otp:String,
+        val password:String,
+        val passwordConfirmation:String
+    )
+
     sealed class ResetPasswordError:Error{
-        data class TokenError(val message:String): ResetPasswordError()
+        data class EmailError(val message:String): ResetPasswordError()
+        data class OtpError(val message:String): ResetPasswordError()
         data class PasswordError(val message:String): ResetPasswordError()
         data class PasswordConfirmationError(val message:String): ResetPasswordError()
     }
