@@ -6,40 +6,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.register.RegisterActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.emailverification.EmailVerificationActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:exported="true">
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="${hostName}"
-                    android:pathPrefix="/emailverification"
-                    android:scheme="https" />
-            </intent-filter>
-        </activity>
         <activity android:name=".ui.welcome.WelcomeActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.forgotpassword.ForgotPasswordActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.resetpassword.ResetPasswordActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:exported="true">
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="${hostName}"
-                    android:pathPrefix="/forgotpassword"
-                    android:scheme="https" />
-            </intent-filter>
-        </activity>
         <activity android:name=".ui.changepassword.ChangePasswordActivity"
             android:screenOrientation="portrait"/>
     </application>

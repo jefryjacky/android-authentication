@@ -42,13 +42,24 @@ android {
     }
 
     productFlavors{
+        def localProperties = new Properties()
+        localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
         staging {
             dimension "version"
             applicationIdSuffix ".staging"
+            buildConfigField "String", "AUTH_API", "\""+localProperties['stagingApi']+"\""
+            buildConfigField "String", "GOOGLE_AUTH_ID", "\""+localProperties['stagingGoogleAuthId']+"\""
+            buildConfigField "String", "API_KEY", "\""+localProperties['stagingApiKey']+"\""
+            manifestPlaceholders = [hostName: localProperties['stagingHostName']]
         }
 
         production {
             dimension "version"
+            buildConfigField "String", "AUTH_API", "\""+localProperties['productionApi']+"\""
+            buildConfigField "String", "GOOGLE_AUTH_ID", "\""+localProperties['productionGoogleAuthId']+"\""
+            buildConfigField "String", "API_KEY", "\""+localProperties['productionApiKey']+"\""
+            manifestPlaceholders = [hostName: localProperties['productionHostName']]
         }
     }
 

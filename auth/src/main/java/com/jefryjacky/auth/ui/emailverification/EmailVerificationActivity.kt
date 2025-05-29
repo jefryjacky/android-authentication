@@ -10,6 +10,7 @@ import android.os.Looper
 import android.view.View
 import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
+import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.R
 import com.jefryjacky.core.base.BaseActivity
 import com.jefryjacky.auth.databinding.ActivityEmailVerificationBinding

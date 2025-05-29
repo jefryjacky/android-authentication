@@ -3,6 +3,7 @@ package com.jefryjacky.auth.di
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
+import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.BuildConfig
 import com.jefryjacky.auth.config.Config
 import com.jefryjacky.auth.domain.repository.database.UserDatabase
@@ -36,13 +37,13 @@ class NetworkModule {
             builder.addInterceptor(loggingInterceptor)
         }
 
-        if(BuildConfig.DEBUG || BuildConfig.FLAVOR == "staging"){
+        if(BuildConfig.DEBUG || AuthConfig.SHOW_API_INFO){
             builder.addInterceptor(ChuckerInterceptor.Builder(context).build())
         }
 
         builder.addInterceptor {
             val builder = it.request().newBuilder()
-            builder.addHeader("API-KEY",BuildConfig.API_KEY)
+            builder.addHeader("API-KEY", AuthConfig.API_KEY)
             val token = userDatabase.getToken()
             if(!token?.accessToken.isNullOrBlank()) {
                 builder.addHeader("Authorization", token!!.accessToken)
@@ -56,7 +57,7 @@ class NetworkModule {
     @Named(Config.RETROFIT_USER)
     fun provideRetrofit(@Named(Config.RETROFIT_USER) okHttpClient: OkHttpClient, schedulers: Schedulers): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.AUTH_API)
+            .baseUrl(AuthConfig.API)
             .addCallAdapterFactory(RxCallAdapterFactory.create(schedulers, Gson()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

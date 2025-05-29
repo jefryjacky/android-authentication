@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.authentication.design.setVisibility
+import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.BuildConfig
 import com.jefryjacky.core.base.BaseActivity
 import com.jefryjacky.auth.R
@@ -59,7 +60,7 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
         binding.googleSignInButton.setOnClickListener {
             // Configure Google Sign In
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(BuildConfig.GOOGLE_AUTH_ID)
+                .requestIdToken(AuthConfig.GOOGLE_AUTH_ID)
                 .requestEmail()
                 .build()
             hideKeyBoard()

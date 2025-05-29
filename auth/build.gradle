@@ -7,7 +7,6 @@ plugins {
 
 android {
     compileSdk rootProject.compileSdkVersion
-    flavorDimensions "version"
     defaultConfig {
         minSdk rootProject.minSdkVersion
         targetSdk rootProject.targetSdkVersion
@@ -27,27 +26,6 @@ android {
         }
     }
 
-    productFlavors{
-        def localProperties = new Properties()
-        localProperties.load(new FileInputStream(rootProject.file("local.properties")))
-
-        staging {
-            dimension "version"
-            buildConfigField "String", "AUTH_API", "\""+localProperties['stagingApi']+"\""
-            buildConfigField "String", "GOOGLE_AUTH_ID", "\""+localProperties['stagingGoogleAuthId']+"\""
-            buildConfigField "String", "API_KEY", "\""+localProperties['stagingApiKey']+"\""
-            manifestPlaceholders = [hostName: localProperties['stagingHostName']]
-        }
-
-        production {
-            dimension "version"
-            buildConfigField "String", "AUTH_API", "\""+localProperties['productionApi']+"\""
-            buildConfigField "String", "GOOGLE_AUTH_ID", "\""+localProperties['productionGoogleAuthId']+"\""
-            buildConfigField "String", "API_KEY", "\""+localProperties['productionApiKey']+"\""
-            manifestPlaceholders = [hostName: localProperties['productionHostName']]
-        }
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17.toString()
         targetCompatibility JavaVersion.VERSION_17.toString()
@@ -63,10 +41,10 @@ android {
     publishing {
         multipleVariants('custom') {
             includeBuildTypeValues('debug','release')
-            includeFlavorDimensionAndValues(
-                    /*dimension =*/ 'version',
-                    /*values =*/ 'staging', 'production'
-            )
+//            includeFlavorDimensionAndValues(
+//                    /*dimension =*/ 'version',
+//                    /*values =*/ 'staging', 'production'
+//            )
         }
     }
 
@@ -105,10 +83,8 @@ dependencies {
     ksp "com.google.dagger:hilt-android-compiler:2.51.1"
 
     //chucker
-    stagingDebugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
-    productionDebugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
-    stagingReleaseImplementation "com.github.chuckerteam.chucker:library:3.5.2"
-    productionReleaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library:3.5.2"
 
     //room
     api "androidx.room:room-runtime:$roomVersion"
