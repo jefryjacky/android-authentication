@@ -60,6 +60,6 @@ interface UserService {
     @POST("/api/password/requestchangepassword/otp")
     fun requestChangePasswordOtp(@Field("email") email:String): Completable
 
-    @POST("/api/password/verify/changepassword/otp")
+    @POST("/api/password/update/otp")
     fun updatePasswordByOtp(@Field("email") email: String, @Field("otp") otp:String): Completable
 }
