@@ -35,4 +35,5 @@
     <string name="label_new_password">New password</string>
     <string name="label_new_password_confirmation">New password confirmation</string>
     <string name="message_change_password_success">Change password success</string>
+    <string name="title_activity_email_verification_otp">EmailVerificationOtpActivity</string>
 </resources>

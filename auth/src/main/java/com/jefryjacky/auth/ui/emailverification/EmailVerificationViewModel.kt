@@ -34,7 +34,7 @@ class EmailVerificationViewModel @Inject constructor(
     fun verifyEmail(activity: Activity, token:String){
         setLoading(true)
         val input = VerifyEmailUseCase.Input(token)
-        verifyEmailUseCase.execute(activity, input, object :VerifyEmailUseCase.Callback{
+        verifyEmailUseCase.execute(input, object :VerifyEmailUseCase.Callback{
             override fun success(output: VerifyEmailUseCase.Output) {
                 setLoading(false)
                 successVerifyEmailEvent.value = Event(Any())

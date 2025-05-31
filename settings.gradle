@@ -3,12 +3,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
 rootProject.name = "authentication"
 include ':app'
 include ':tempauth'
-include ':core'
 include ':core'
 include ':auth'

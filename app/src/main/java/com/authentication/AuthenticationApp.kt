@@ -15,6 +15,8 @@ class AuthenticationApp:Application() {
         AuthConfig.API = BuildConfig.AUTH_API
         AuthConfig.API_KEY = BuildConfig.API_KEY
         AuthConfig.GOOGLE_AUTH_ID = BuildConfig.GOOGLE_AUTH_ID
+        AuthConfig.EMAIL_VERIFICATION_BY_LINK = false
+        AuthConfig.EMAIL_VERIFICATION_BY_OTP = true
     }
 
     override fun attachBaseContext(base: Context?) {
