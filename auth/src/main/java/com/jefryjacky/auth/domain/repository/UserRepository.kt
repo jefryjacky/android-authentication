@@ -108,7 +108,7 @@ class UserRepository @Inject constructor(
     }
 
     fun requestEmailVerificationOtp(email:String): Completable{
-        return userApi.requestEmailVerification(email)
+        return userApi.requestEmailVerificationOtp(email)
             .subscribeOn(schedulers.netWorkThread())
     }
 

@@ -28,11 +28,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jefryjacky.auth.ui.theme.AuthenticationTheme
 import com.jefryjacky.auth.ui.theme.Typography
 
 @Composable
-fun AkseleranOtp(
+fun OtpField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
@@ -105,7 +104,7 @@ private fun PreviewOtpField() {
     var value by remember {
         mutableStateOf("123")
     }
-    AkseleranOtp(
+    OtpField(
         modifier = Modifier.padding(16.dp),
         value = value,
         errorMessage = "invalid otp number",

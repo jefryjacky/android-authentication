@@ -68,7 +68,7 @@ class UserApiImpl @Inject constructor(
     }
 
     override fun requestEmailVerificationOtp(email: String): Completable {
-        return userService.requestEmailVerification(email)
+        return userService.requestEmailVerificationOtp(email)
     }
 
     override fun verifyEmailOtp(
