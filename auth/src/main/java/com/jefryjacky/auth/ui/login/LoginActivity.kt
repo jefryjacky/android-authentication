@@ -17,6 +17,7 @@ import com.jefryjacky.core.base.BaseActivity
 import com.jefryjacky.auth.R
 import com.jefryjacky.auth.databinding.ActivityLoginBinding
 import com.jefryjacky.auth.ui.forgotpassword.ForgotPasswordActivity
+import com.jefryjacky.auth.ui.forgotpasswordbyotp.ForgotPasswordByOtpActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -68,7 +69,11 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
             googleSignInLauncher.launch(googleSignInClient.signInIntent)
         }
         binding.forgotPassword.setOnClickListener {
-            ForgotPasswordActivity.navigate(this)
+            if(AuthConfig.FORGOT_PASSWORD_BY_OTP){
+                ForgotPasswordByOtpActivity.navigate(this)
+            } else if(AuthConfig.FORGOT_PASSWORD_BY_LINK){
+                ForgotPasswordActivity.navigate(this)
+            }
         }
 
         binding.email.addTextChangedListener {

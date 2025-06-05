@@ -9,7 +9,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.runtime.LaunchedEffect
 import com.jefryjacky.auth.ui.theme.AuthenticationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.runtime.getValue

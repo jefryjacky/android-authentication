@@ -17,6 +17,8 @@ class AuthenticationApp:Application() {
         AuthConfig.GOOGLE_AUTH_ID = BuildConfig.GOOGLE_AUTH_ID
         AuthConfig.EMAIL_VERIFICATION_BY_LINK = false
         AuthConfig.EMAIL_VERIFICATION_BY_OTP = true
+        AuthConfig.FORGOT_PASSWORD_BY_OTP = true
+        AuthConfig.FORGOT_PASSWORD_BY_LINK = false
     }
 
     override fun attachBaseContext(base: Context?) {
