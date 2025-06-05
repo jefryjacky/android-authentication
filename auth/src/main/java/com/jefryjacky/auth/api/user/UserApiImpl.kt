@@ -87,8 +87,9 @@ class UserApiImpl @Inject constructor(
 
     override fun updatePasswordByOtp(
         email: String,
+        password: String,
         otp: String
     ): Completable {
-        return userService.updatePasswordByOtp(email, otp)
+        return userService.updatePasswordByOtp(email, password, otp)
     }
 }

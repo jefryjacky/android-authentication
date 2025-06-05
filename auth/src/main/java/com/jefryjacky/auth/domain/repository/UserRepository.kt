@@ -128,8 +128,8 @@ class UserRepository @Inject constructor(
             .subscribeOn(schedulers.netWorkThread())
     }
 
-    fun updatePasswordByOtp(email:String, otp:String): Completable{
-        return userApi.updatePasswordByOtp(email, otp)
+    fun updatePasswordByOtp(email:String, password:String, otp:String): Completable{
+        return userApi.updatePasswordByOtp(email, password, otp)
             .subscribeOn(schedulers.netWorkThread())
     }
 }

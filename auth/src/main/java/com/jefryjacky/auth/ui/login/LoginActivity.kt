@@ -130,5 +130,11 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
             val intent = Intent(activity, LoginActivity::class.java)
             activity.startActivity(intent)
         }
+
+        fun navigateTop(activity: Activity){
+            val intent = Intent(activity, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            activity.startActivity(intent)
+        }
     }
 }

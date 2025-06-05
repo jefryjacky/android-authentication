@@ -57,9 +57,6 @@ fun ForgotPasswordByOtpContent(
     state: ForgotPasswordByOtpState,
     event: (ForgotPasswordByOtpEvent) -> Unit
 ) {  // Define a mutable state to hold the state
-    val sheetState = rememberModalBottomSheetState()
-    val scope = rememberCoroutineScope()
-    var showBottomSheet by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -85,6 +82,10 @@ fun ForgotPasswordByOtpContent(
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.email,
+                    isError = state.errorMail.isNotEmpty(),
+                    supportingText = {
+                        Text(text = state.errorMail)
+                    },
                     label = {
                         Text(text = stringResource(R.string.label_email))
                     },
@@ -96,6 +97,7 @@ fun ForgotPasswordByOtpContent(
                 Spacer(Modifier.height(16.dp))
                 PasswordField(
                     password = state.newPassword,
+                    error = state.errorNewPassword,
                     label = stringResource(R.string.label_new_password)
                 ) {
                     event(ForgotPasswordByOtpEvent.TypingNewPasswordEvent(it))
@@ -103,6 +105,7 @@ fun ForgotPasswordByOtpContent(
                 Spacer(Modifier.height(16.dp))
                 PasswordField(
                     password = state.confirmPassword,
+                    error = state.errorConfirmPassword,
                     label = stringResource(R.string.label_new_password_confirmation)
                 ) {
                     event(ForgotPasswordByOtpEvent.TypingConfirmPasswordEvent(it))
@@ -112,7 +115,6 @@ fun ForgotPasswordByOtpContent(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(6.dp),
                     onClick = {
-                        showBottomSheet = true
                         event(ForgotPasswordByOtpEvent.NextEvent)
                     }) {
                     Text(text = stringResource(R.string.next))
@@ -126,32 +128,12 @@ fun ForgotPasswordByOtpContent(
             }
         }
     }
-    if(showBottomSheet) {
-        ModalBottomSheet(
-            onDismissRequest = {
-                showBottomSheet = false
-            },
-            sheetState = sheetState
-        ) {
-            OtpField(
-                value = "",
-                onValueChange = {
-
-                })
-            Spacer(Modifier.height(16.dp))
-            Button(
-                shape = RoundedCornerShape(6.dp),
-                onClick = {
-                }){
-                Text(text = stringResource(R.string.resend_otp))
-            }
-        }
-    }
 }
 
 @Composable
 fun PasswordField(password: String,
                   label: String,
+                  error: String = "",
                   onValueChange: (String) -> Unit){
     var showPassword by remember { mutableStateOf(false) }
 
@@ -166,6 +148,11 @@ fun PasswordField(password: String,
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = password,
+        supportingText = {
+            Text(text = error)
+
+        },
+        isError = error.isNotEmpty(),
         label = {
             Text(text = label)
         },

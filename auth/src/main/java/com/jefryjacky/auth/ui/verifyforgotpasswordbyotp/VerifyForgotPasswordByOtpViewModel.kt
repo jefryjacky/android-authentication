@@ -1,9 +1,10 @@
-package com.jefryjacky.auth.ui.emailverificationotp
+package com.jefryjacky.auth.ui.verifyforgotpasswordbyotp
 
 import androidx.lifecycle.viewModelScope
+import com.jefryjacky.auth.domain.usecase.RequestChangePasswordOtpUseCase
 import com.jefryjacky.auth.domain.usecase.RequestEmailVerificationOtpUseCase
+import com.jefryjacky.auth.domain.usecase.UpdatePasswordByOtpUseCase
 import com.jefryjacky.auth.domain.usecase.VerifyEmailOtpUseCase
-import com.jefryjacky.auth.ui.emailverification.EmailVerificationRoute
 import com.jefryjacky.core.base.BaseViewModel
 import com.jefryjacky.core.domain.usecase.BaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,10 +20,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EmailVerificationOtpViewModel @Inject constructor(
-    private val requestEmailVerificationOtpUseCase: RequestEmailVerificationOtpUseCase,
-    private val verifyEmailOtpUseCase: VerifyEmailOtpUseCase
+class VerifyForgotPasswordByOtpViewModel @Inject constructor(
+    private val requestChangePasswordOtpUseCase: RequestChangePasswordOtpUseCase,
+    private val updatePasswordByOtpUseCase: UpdatePasswordByOtpUseCase
 ): BaseViewModel() {
+
+    init {
+        addUseCase(requestChangePasswordOtpUseCase)
+        addUseCase(updatePasswordByOtpUseCase)
+    }
+
+    var newPassword = ""
 
     protected val _successEvent = Channel<Any>()
     val successEvent = _successEvent.receiveAsFlow()
@@ -30,12 +38,8 @@ class EmailVerificationOtpViewModel @Inject constructor(
     protected val _hideKeyboardEvent = Channel<Any>()
     val hideKeyboardEvent = _hideKeyboardEvent.receiveAsFlow()
 
-    init {
-        addUseCase(requestEmailVerificationOtpUseCase)
-        addUseCase(verifyEmailOtpUseCase)
-    }
+    private val _state = MutableStateFlow(VerifyForgotPasswordByOtpState())
 
-    private val _state = MutableStateFlow(EmailVerificationOtpState())
     val state = _state.asStateFlow()
 
     fun setEmail(email: String){
@@ -43,15 +47,15 @@ class EmailVerificationOtpViewModel @Inject constructor(
     }
 
     fun requestOtp(){
-        requestEmailVerificationOtpUseCase.execute(state.value.email)
+        requestChangePasswordOtpUseCase.execute(state.value.email)
         _state.update {
             it.copy(expire = System.currentTimeMillis() + 60000*3)
         }
     }
 
-    fun handleEvent(event: EmailVerificationOtpEvent) {
+    fun handleEvent(event: VerifyForgotPasswordByOtpEvent) {
         when (event) {
-            is EmailVerificationOtpEvent.TypeOtpEvent -> {
+            is VerifyForgotPasswordByOtpEvent.TypeOtpEvent -> {
                 _state.update {
                     it.copy(otp = event.otp, error = "")
                 }
@@ -59,17 +63,18 @@ class EmailVerificationOtpViewModel @Inject constructor(
                     viewModelScope.launch {
                         _hideKeyboardEvent.send(Any())
                     }
-                    verifyEmailOtpUseCase.execute(VerifyEmailOtpUseCase.Input(
+                    updatePasswordByOtpUseCase.execute(UpdatePasswordByOtpUseCase.Input(
                         otp = event.otp,
-                        email = state.value.email
-                    ), callback = object :VerifyEmailOtpUseCase.Callback{
-                        override fun success(output: VerifyEmailOtpUseCase.Output) {
+                        email = state.value.email,
+                        password = newPassword,
+                    ), callback = object :UpdatePasswordByOtpUseCase.Callback{
+                        override fun success() {
                             viewModelScope.launch {
                                 _successEvent.send(Any())
                             }
                         }
 
-                        override fun invalidOtp(message: String) {
+                        override fun errorInvalidOtp(message: String) {
                             viewModelScope.launch {
                                 _errorFlow.send(message)
                             }
@@ -89,7 +94,7 @@ class EmailVerificationOtpViewModel @Inject constructor(
                 }
             }
 
-            is EmailVerificationOtpEvent.RequestOtpEvent -> {
+            is VerifyForgotPasswordByOtpEvent.RequestOtpEvent -> {
                 requestOtp()
             }
         }

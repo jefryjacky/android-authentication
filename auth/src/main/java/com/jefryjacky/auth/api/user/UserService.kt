@@ -64,5 +64,5 @@ interface UserService {
 
     @POST("/api/password/update/otp")
     @FormUrlEncoded
-    fun updatePasswordByOtp(@Field("email") email: String, @Field("otp") otp:String): Completable
+    fun updatePasswordByOtp(@Field("email") email: String, @Field("password") password:String, @Field("otp") otp:String): Completable
 }

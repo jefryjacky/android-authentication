@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import com.jefryjacky.auth.ui.verifyforgotpasswordbyotp.VerifyForgotPasswordByOtpActivity
 import com.jefryjacky.core.ext.ObserveAsEvent
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,10 @@ class ForgotPasswordByOtpActivity: ComponentActivity() {
                     scope.launch {
                         snackbarHostState.showSnackbar(it)
                     }
+                }
+
+                viewModel.success.ObserveAsEvent{
+                    VerifyForgotPasswordByOtpActivity.navigate(this, state.email, state.newPassword)
                 }
 
                 ForgotPasswordByOtpContent(snackbarHostState,

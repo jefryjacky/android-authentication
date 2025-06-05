@@ -25,6 +25,10 @@
         <activity
             android:name=".ui.forgotpasswordbyotp.ForgotPasswordByOtpActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.verifyforgotpasswordbyotp.VerifyForgotPasswordByOtpActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

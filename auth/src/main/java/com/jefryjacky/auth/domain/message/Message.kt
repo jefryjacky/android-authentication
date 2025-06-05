@@ -12,4 +12,5 @@ interface Message {
     fun messageErrorsEmailHaveNotBeenRegitered():String
     fun messageErrorsResetPasswordLinkInvalid():String
     fun messageWrongPassword():String
+    fun messagePasswordIsNotSameWithAbove(): String
 }

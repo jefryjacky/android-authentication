@@ -48,4 +48,8 @@ class MessageImpl(private val context:Context): Message {
     override fun messageWrongPassword(): String {
         return context.getString(R.string.message_wrong_password)
     }
+
+    override fun messagePasswordIsNotSameWithAbove(): String {
+        return context.getString(R.string.message_password_is_not_same_with_above)
+    }
 }
