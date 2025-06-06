@@ -1,8 +1,7 @@
 package com.jefryjacky.auth
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.foundation.isSystemInDarkTheme
 
 object AuthConfig {
     var SHOW_API_INFO: Boolean = false
@@ -13,4 +12,7 @@ object AuthConfig {
     var EMAIL_VERIFICATION_BY_OTP = true
     var FORGOT_PASSWORD_BY_OTP  = false
     var FORGOT_PASSWORD_BY_LINK  = false
+
+    var Theme: @Composable (content: @Composable () -> Unit)-> Unit = {}
+    var Typography: Typography = Typography()
 }

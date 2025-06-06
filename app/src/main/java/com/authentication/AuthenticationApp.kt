@@ -3,6 +3,8 @@ package com.authentication
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.authentication.ui.testcompose.ui.theme.AuthenticationAppTheme
+import com.authentication.ui.testcompose.ui.theme.Typography
 import com.jefryjacky.auth.AuthConfig
 import dagger.hilt.android.HiltAndroidApp
 
@@ -19,6 +21,14 @@ class AuthenticationApp:Application() {
         AuthConfig.EMAIL_VERIFICATION_BY_OTP = true
         AuthConfig.FORGOT_PASSWORD_BY_OTP = true
         AuthConfig.FORGOT_PASSWORD_BY_LINK = false
+
+        AuthConfig.Theme = { content->
+            AuthenticationAppTheme(
+                content = content
+            )
+        }
+
+        AuthConfig.Typography = Typography
     }
 
     override fun attachBaseContext(base: Context?) {

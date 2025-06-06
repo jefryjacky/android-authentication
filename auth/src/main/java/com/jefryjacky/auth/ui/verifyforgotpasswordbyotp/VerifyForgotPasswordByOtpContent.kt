@@ -27,10 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.R
 import com.jefryjacky.auth.ui.component.OtpField
 import com.jefryjacky.auth.ui.theme.AuthenticationTheme
-import com.jefryjacky.auth.ui.theme.Typography
 import com.jefryjacky.core.ext.toCountDownDisplay
 import kotlinx.coroutines.delay
 
@@ -60,7 +60,7 @@ fun VerifyForgotPasswordByOtpContent(
             Text(
                 modifier = Modifier.statusBarsPadding().padding(16.dp),
                 text = stringResource(R.string.title_forgot_password),
-                style = Typography.titleLarge
+                style = AuthConfig.Typography.titleLarge
             )
         }
     ) {
@@ -68,7 +68,7 @@ fun VerifyForgotPasswordByOtpContent(
             .padding(top = 0.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)) {
             Column{
                 Text(text = stringResource(R.string.forgot_password_otp_verification_description, state.email),
-                    style = Typography.bodySmall)
+                    style = AuthConfig.Typography.bodySmall)
                 Spacer(modifier = Modifier.height(16.dp))
                 OtpField(
                     value = state.otp,
@@ -80,7 +80,7 @@ fun VerifyForgotPasswordByOtpContent(
                 Spacer(modifier = Modifier.height(16.dp))
                 if(remainingTime > 0){
                     Text(text = stringResource(R.string.resend_after, remainingTime.toCountDownDisplay()),
-                        style = Typography.bodySmall)
+                        style = AuthConfig.Typography.bodySmall)
                 } else {
                     Button(
                         shape = RoundedCornerShape(6.dp),

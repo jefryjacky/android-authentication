@@ -9,12 +9,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.material3.SnackbarHostState
-import com.jefryjacky.auth.ui.theme.AuthenticationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.ui.emailverification.EmailVerificationRoute
 import com.jefryjacky.core.ext.ObserveAsEvent
 import com.jefryjacky.core.ext.hideKeyBoard
@@ -48,7 +48,7 @@ class EmailVerificationOtpActivity : ComponentActivity() {
             viewModel.hideKeyboardEvent.ObserveAsEvent {
                 hideKeyBoard()
             }
-            AuthenticationTheme {
+            AuthConfig.Theme {
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 val loading by viewModel.loadingState.collectAsStateWithLifecycle(false)
                 EmailVerificationOtpContent(

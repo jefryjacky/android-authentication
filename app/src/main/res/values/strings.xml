@@ -1,5 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Authentication-App</string>
     <string name="label_email">Email</string>
     <string name="label_password">Password</string>
@@ -17,8 +16,9 @@
     <string name="password_must_contains_capital_character">Password must contain capital character</string>
     <string name="email_have_been_registered">Email have been registered</string>
     <string name="email_verification">Email Verification</string>
-    <string name="email_verification_description">Verifcation email have sent to <xliff:g id="quantity" example="2">%1$s</xliff:g>, please open your email and click the verification link</string>
+    <string name="email_verification_description">Verifcation email have sent to <xliff:g example="2" id="quantity">%1$s</xliff:g>, please open your email and click the verification link</string>
     <string name="button_resend_verication_email">Resend verification email</string>
     <string name="skip">Skip</string>
     <string name="resend_after">Resend after %1$s</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>
