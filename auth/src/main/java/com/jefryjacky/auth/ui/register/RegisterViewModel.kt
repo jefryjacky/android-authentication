@@ -2,15 +2,18 @@ package com.jefryjacky.auth.ui.register
 
 import android.app.Activity
 import androidx.lifecycle.MutableLiveData
+import com.jefryjacky.auth.domain.entity.User
+import com.jefryjacky.auth.domain.usecase.LoginGoogleUseCase
 import com.jefryjacky.core.base.BaseViewModel
 import com.jefryjacky.core.domain.usecase.BaseUseCase
 import com.jefryjacky.auth.domain.usecase.RegisterUseCase
+import com.jefryjacky.auth.ui.login.LoginRoute
 import com.jefyjacky.auth.ui.Event
 import javax.inject.Inject
 
 class RegisterViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
-    private val registerRoute:RegisterRoute
+    private val googleSignInUseCase: LoginGoogleUseCase
 ): BaseViewModel() {
 
     init{
@@ -21,6 +24,7 @@ class RegisterViewModel @Inject constructor(
     val passwordErrorEvent = MutableLiveData<Event<String>>()
     val passwordConfirmationErrorEvent = MutableLiveData<Event<String>>()
     val registerSuccessEvent = MutableLiveData<Event<String>>()
+    val registerGoogleSuccessEvent = MutableLiveData<Event<User>>()
 
     fun register(email:String , password:String, passwordConfirmation:String){
         setLoading(true)
@@ -44,7 +48,18 @@ class RegisterViewModel @Inject constructor(
         })
     }
 
-    fun navigateNext(activity: Activity, email: String){
-        registerRoute.next(activity, email)
+    fun loginGoogle(token:String){
+        setLoading(true)
+        val input = LoginGoogleUseCase.Input(token)
+        googleSignInUseCase.execute(input, object : LoginGoogleUseCase.Callback{
+            override fun success(output: LoginGoogleUseCase.Output) {
+                setLoading(false)
+                registerGoogleSuccessEvent.value = Event(output.user)
+            }
+
+            override fun errors(errors: List<BaseUseCase.Error>) {
+                setLoading(false)
+            }
+        })
     }
 }

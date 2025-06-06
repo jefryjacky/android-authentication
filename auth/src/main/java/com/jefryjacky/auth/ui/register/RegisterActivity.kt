@@ -3,11 +3,19 @@ package com.jefryjacky.auth.ui.register
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.authentication.design.setVisibility
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
+import com.jefryjacky.auth.AuthConfig
+import com.jefryjacky.auth.R
 import com.jefryjacky.core.base.BaseActivity
 import com.jefryjacky.auth.databinding.ActivityRegisterBinding
+import com.jefryjacky.auth.ui.login.LoginRoute
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -15,6 +23,24 @@ import javax.inject.Inject
 class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
     private val viewModel: RegisterViewModel by viewModels {viewModelFactory}
+
+    @Inject lateinit var registerRoute:RegisterRoute
+    @Inject lateinit var loginRouter: LoginRoute
+
+    private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
+    ) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+        try {
+            // Google Sign In was successful, authenticate with Firebase
+            val account = task.getResult(ApiException::class.java)!!
+            viewModel.loginGoogle(account.idToken!!)
+        } catch (e: ApiException) {
+            // Google Sign In failed, update UI appropriately
+            Snackbar.make(binding.root, getString(R.string.message_unathorized_google), Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.dismiss
+                ) {  }.show()
+        }
+    }
 
     override fun inflate(): ActivityRegisterBinding {
         return ActivityRegisterBinding.inflate(layoutInflater)
@@ -49,7 +75,13 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
         viewModel.registerSuccessEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                viewModel.navigateNext(this, it)
+                registerRoute.next(this, it)
+            }
+        }
+
+        viewModel.registerGoogleSuccessEvent.observe(this){
+            it.contentIfNotHaveBeenHandle?.let {
+                loginRouter.next(this, it)
             }
         }
     }
@@ -74,6 +106,17 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
         binding.reinputPassword.addTextChangedListener {
             binding.inputLayoutReinputPassword.error = ""
+        }
+
+        binding.googleSignInButton.setOnClickListener {
+            // Configure Google Sign In
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(AuthConfig.GOOGLE_AUTH_ID)
+                .requestEmail()
+                .build()
+            hideKeyBoard()
+            val googleSignInClient = GoogleSignIn.getClient(this, gso)
+            googleSignInLauncher.launch(googleSignInClient.signInIntent)
         }
     }
 
