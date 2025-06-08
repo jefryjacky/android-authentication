@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.jefryjacky</groupId>
     <artifactId>android-authentication</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>pom</packaging>
     <description>Android Authentication Library</description>
 </project>
