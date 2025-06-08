@@ -40,23 +40,29 @@ android {
     }
     namespace 'com.jefryjacky.auth'
 
-    publishing {
-        multipleVariants('custom') {
-            includeBuildTypeValues('debug','release')
+//    publishing {
+//        multipleVariants('custom') {
+//            includeBuildTypeValues('debug','release')
 //            includeFlavorDimensionAndValues(
 //                    /*dimension =*/ 'version',
 //                    /*values =*/ 'staging', 'production'
 //            )
+//        }
+//    }
+
+    publishing {
+        singleVariant('release'){
+            withJavadocJar()
         }
     }
 
-    configurations {
-        // Initializes a placeholder for the freeDebugImplementation dependency configuration.
-        stagingDebugImplementation {}
-        stagingReleaseImplementation {}
-        productionDebugImplementation {}
-        productionReleaseImplementation {}
-    }
+//    configurations {
+//        // Initializes a placeholder for the freeDebugImplementation dependency configuration.
+//        stagingDebugImplementation {}
+//        stagingReleaseImplementation {}
+//        productionDebugImplementation {}
+//        productionReleaseImplementation {}
+//    }
 }
 
 dependencies {
