@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import com.jefryjacky.auth.AuthConfig
+import com.jefryjacky.auth.ui.theme.AuthenticationTheme
 import com.jefryjacky.auth.ui.verifyforgotpasswordbyotp.VerifyForgotPasswordByOtpActivity
 import com.jefryjacky.core.ext.ObserveAsEvent
 import kotlinx.coroutines.launch
@@ -25,7 +26,7 @@ class ForgotPasswordByOtpActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AuthConfig.Theme?.ApplyTheme {
+            AuthenticationTheme {
                 val scope = rememberCoroutineScope()
                 val snackbarHostState = remember { SnackbarHostState() }
                 val loading by viewModel.loadingState.collectAsStateWithLifecycle(false)

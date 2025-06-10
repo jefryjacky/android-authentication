@@ -17,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.ui.emailverification.EmailVerificationRoute
 import com.jefryjacky.auth.ui.login.LoginActivity
+import com.jefryjacky.auth.ui.theme.AuthenticationTheme
 import com.jefryjacky.core.ext.ObserveAsEvent
 import com.jefryjacky.core.ext.hideKeyBoard
 import kotlinx.coroutines.launch
@@ -51,7 +52,7 @@ class VerifyForgotPasswordByOtpActivity : ComponentActivity() {
             viewModel.hideKeyboardEvent.ObserveAsEvent {
                 hideKeyBoard()
             }
-            AuthConfig.Theme?.ApplyTheme() {
+            AuthenticationTheme {
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 val loading by viewModel.loadingState.collectAsStateWithLifecycle(false)
                 VerifyForgotPasswordByOtpContent(
