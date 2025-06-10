@@ -51,7 +51,7 @@ class VerifyForgotPasswordByOtpActivity : ComponentActivity() {
             viewModel.hideKeyboardEvent.ObserveAsEvent {
                 hideKeyBoard()
             }
-            AuthConfig.Theme {
+            AuthConfig.Theme?.ApplyTheme() {
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 val loading by viewModel.loadingState.collectAsStateWithLifecycle(false)
                 VerifyForgotPasswordByOtpContent(

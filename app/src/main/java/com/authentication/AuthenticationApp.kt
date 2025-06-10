@@ -2,10 +2,12 @@ package com.authentication
 
 import android.app.Application
 import android.content.Context
+import androidx.compose.runtime.Composable
 import androidx.multidex.MultiDex
 import com.authentication.ui.testcompose.ui.theme.AuthenticationAppTheme
 import com.authentication.ui.testcompose.ui.theme.Typography
 import com.jefryjacky.auth.AuthConfig
+import com.jefryjacky.auth.AuthThemeProvider
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -22,10 +24,13 @@ class AuthenticationApp:Application() {
         AuthConfig.FORGOT_PASSWORD_BY_OTP = true
         AuthConfig.FORGOT_PASSWORD_BY_LINK = false
 
-        AuthConfig.Theme = { content->
-            AuthenticationAppTheme(
-                content = content
-            )
+        AuthConfig.Theme = object : AuthThemeProvider {
+            @Composable
+            override fun ApplyTheme(content: @Composable (() -> Unit)) {
+                AuthenticationAppTheme(
+                    content = content
+                )
+            }
         }
 
         AuthConfig.Typography = Typography

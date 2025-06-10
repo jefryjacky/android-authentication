@@ -25,7 +25,7 @@ class ForgotPasswordByOtpActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AuthConfig.Theme {
+            AuthConfig.Theme?.ApplyTheme {
                 val scope = rememberCoroutineScope()
                 val snackbarHostState = remember { SnackbarHostState() }
                 val loading by viewModel.loadingState.collectAsStateWithLifecycle(false)

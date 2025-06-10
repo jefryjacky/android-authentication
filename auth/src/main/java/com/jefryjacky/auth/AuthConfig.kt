@@ -13,6 +13,11 @@ object AuthConfig {
     var FORGOT_PASSWORD_BY_OTP  = false
     var FORGOT_PASSWORD_BY_LINK  = false
 
-    var Theme: @Composable (content: @Composable () -> Unit)-> Unit = {}
+    var Theme: AuthThemeProvider? = null
     var Typography: Typography = Typography()
+}
+
+interface AuthThemeProvider {
+    @Composable
+    fun ApplyTheme(content: @Composable () -> Unit)
 }
