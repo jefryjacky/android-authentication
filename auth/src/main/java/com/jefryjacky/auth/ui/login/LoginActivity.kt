@@ -3,6 +3,7 @@ package com.jefryjacky.auth.ui.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
@@ -15,6 +16,7 @@ import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.BuildConfig
 import com.jefryjacky.core.base.BaseActivity
 import com.jefryjacky.auth.R
+import com.jefryjacky.auth.config.Config
 import com.jefryjacky.auth.databinding.ActivityLoginBinding
 import com.jefryjacky.auth.ui.forgotpassword.ForgotPasswordActivity
 import com.jefryjacky.auth.ui.forgotpasswordbyotp.ForgotPasswordByOtpActivity
@@ -35,6 +37,7 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
             viewmodel.loginGoogle(account.idToken!!)
         } catch (e: ApiException) {
             // Google Sign In failed, update UI appropriately
+            Log.e(Config.TAG_LOG,"Google sign in failed ${e.message}")
             Snackbar.make(binding.root, getString(R.string.message_unathorized_google), Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.dismiss
                 ) {  }.show()
@@ -59,6 +62,8 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
             hideKeyBoard()
         }
         binding.googleSignInButton.setOnClickListener {
+            Log.d(Config.TAG_LOG,"Google sign in with request Id Token ${AuthConfig.GOOGLE_AUTH_ID}")
+
             // Configure Google Sign In
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(AuthConfig.GOOGLE_AUTH_ID)
