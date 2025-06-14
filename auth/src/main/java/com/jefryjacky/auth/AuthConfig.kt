@@ -15,4 +15,5 @@ object AuthConfig {
     var LIGHT_COLOR_SCHEME: ColorScheme? = null
     var DARK_COLOR_SCHEME: ColorScheme? = null
     var Typography: Typography = Typography()
+    var DISABLE_DYNAMIC_THEME = false
 }
