@@ -32,6 +32,10 @@ class ResetPasswordViewModel @Inject constructor(
                 successEvent.value = Event(Any())
             }
 
+            override fun loading(loading: Boolean) {
+
+            }
+
             override fun errors(errors: List<BaseUseCase.Error>) {
                 errors.forEach {
                     when(it){

@@ -35,6 +35,10 @@ class LoginViewModel @Inject constructor(
                     loginSuccessEvent.value = Event(output.user)
                 }
 
+                override fun loading(loading: Boolean) {
+
+                }
+
                 override fun errors(errors: List<BaseUseCase.Error>) {
                     setLoading(false)
                     errors.forEach {
@@ -58,6 +62,10 @@ class LoginViewModel @Inject constructor(
             override fun success(output: LoginGoogleUseCase.Output) {
                 setLoading(false)
                 loginSuccessEvent.value = Event(output.user)
+            }
+
+            override fun loading(loading: Boolean) {
+
             }
 
             override fun errors(errors: List<BaseUseCase.Error>) {

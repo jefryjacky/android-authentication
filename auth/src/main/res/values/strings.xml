@@ -42,4 +42,7 @@
     <string name="resend_otp">Resend OTP</string>
     <string name="message_password_is_not_same_with_above">Password is not same with above</string>
     <string name="forgot_password_otp_verification_description">Please check your email to get the OTP code.</string>
+    <string name="profile">Profile</string>
+    <string name="display_name">Display Name</string>
+    <string name="message_error_empty_display_name">Display name is empty</string>
 </resources>

@@ -40,6 +40,10 @@ class EmailVerificationViewModel @Inject constructor(
                 successVerifyEmailEvent.value = Event(Any())
             }
 
+            override fun loading(loading: Boolean) {
+
+            }
+
             override fun errors(errors: List<BaseUseCase.Error>) {
                 setLoading(false)
                 failedVerifyEmailEvent.value = Event(Any())
@@ -51,6 +55,10 @@ class EmailVerificationViewModel @Inject constructor(
         isLoginUseCase.execute(object :IsLoginUseCase.Callback{
             override fun success(output: IsLoginUseCase.Output) {
                 if(!output.isLogin) navigateToLoginViewEvent.value = Event(Any())
+            }
+
+            override fun loading(loading: Boolean) {
+
             }
 
             override fun errors(errors: List<BaseUseCase.Error>) {

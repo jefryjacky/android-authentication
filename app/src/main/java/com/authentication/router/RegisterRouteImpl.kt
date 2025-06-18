@@ -5,6 +5,7 @@ import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.ui.emailverification.EmailVerificationActivity
 import com.jefryjacky.auth.ui.emailverificationotp.EmailVerificationOtpActivity
 import com.jefryjacky.auth.ui.register.RegisterRoute
+import com.jefryjacky.auth.ui.updateuser.UpdateUserActivity
 import javax.inject.Inject
 
 class RegisterRouteImpl @Inject constructor():RegisterRoute {
@@ -14,5 +15,10 @@ class RegisterRouteImpl @Inject constructor():RegisterRoute {
         } else if(AuthConfig.EMAIL_VERIFICATION_BY_LINK){
             EmailVerificationActivity.navigate(activity, email)
         }
+        activity.finish()
+    }
+
+    override fun nextGoogleLogin(activity: Activity) {
+        UpdateUserActivity.navigate(activity)
     }
 }

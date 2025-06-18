@@ -52,4 +52,8 @@ class MessageImpl(private val context:Context): Message {
     override fun messagePasswordIsNotSameWithAbove(): String {
         return context.getString(R.string.message_password_is_not_same_with_above)
     }
+
+    override fun messageErrorEmptyDisplayName(): String {
+        return context.getString(R.string.message_error_empty_display_name)
+    }
 }

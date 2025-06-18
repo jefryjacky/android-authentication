@@ -38,7 +38,6 @@ class VerifyEmailOtpUseCase @Inject constructor(
     interface Callback : BaseUseCase.BaseCallback {
         fun success(output: Output)
         fun invalidOtp(message: String)
-        fun loading(loading: Boolean)
     }
 
     data class Input(

@@ -23,6 +23,7 @@ abstract class BaseUseCase {
     }
 
     interface BaseCallback{
+        fun loading(loading:Boolean)
         fun errors(errors:List<Error>)
     }
 

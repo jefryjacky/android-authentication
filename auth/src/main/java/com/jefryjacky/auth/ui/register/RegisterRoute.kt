@@ -5,4 +5,5 @@ import com.jefryjacky.auth.domain.entity.User
 
 interface RegisterRoute {
     fun next(activity:Activity, email:String)
+    fun nextGoogleLogin(activity: Activity)
 }

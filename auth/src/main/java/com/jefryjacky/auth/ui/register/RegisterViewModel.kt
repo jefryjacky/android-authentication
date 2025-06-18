@@ -35,6 +35,10 @@ class RegisterViewModel @Inject constructor(
                 setLoading(false)
             }
 
+            override fun loading(loading: Boolean) {
+
+            }
+
             override fun errors(errors: List<BaseUseCase.Error>) {
                 errors.forEach {
                     when(it){
@@ -55,6 +59,10 @@ class RegisterViewModel @Inject constructor(
             override fun success(output: LoginGoogleUseCase.Output) {
                 setLoading(false)
                 registerGoogleSuccessEvent.value = Event(output.user)
+            }
+
+            override fun loading(loading: Boolean) {
+
             }
 
             override fun errors(errors: List<BaseUseCase.Error>) {

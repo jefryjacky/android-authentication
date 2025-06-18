@@ -41,7 +41,6 @@ class UpdatePasswordByOtpUseCase @Inject constructor(
     interface Callback:BaseCallback{
         fun success()
         fun errorInvalidOtp(message: String)
-        fun loading(loading:Boolean)
     }
 
     data class Input(

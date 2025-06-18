@@ -25,7 +25,6 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
     private val viewModel: RegisterViewModel by viewModels {viewModelFactory}
 
     @Inject lateinit var registerRoute:RegisterRoute
-    @Inject lateinit var loginRouter: LoginRoute
 
     private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
     ) {
@@ -81,7 +80,7 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
         viewModel.registerGoogleSuccessEvent.observe(this){
             it.contentIfNotHaveBeenHandle?.let {
-                loginRouter.next(this, it)
+                registerRoute.nextGoogleLogin(this)
             }
         }
     }

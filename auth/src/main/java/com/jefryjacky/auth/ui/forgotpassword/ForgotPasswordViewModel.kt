@@ -27,6 +27,10 @@ class ForgotPasswordViewModel @Inject constructor(
                 successRequestResetEvent.value = Event(Any())
             }
 
+            override fun loading(loading: Boolean) {
+
+            }
+
             override fun errors(errors: List<BaseUseCase.Error>) {
                 setLoading(false)
                 errors.forEach {

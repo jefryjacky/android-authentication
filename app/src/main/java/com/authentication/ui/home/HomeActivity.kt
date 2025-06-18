@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.authentication.databinding.ActivityHomeBinding
 import com.jefryjacky.auth.ui.changepassword.ChangePasswordActivity
+import com.jefryjacky.auth.ui.updateuser.UpdateUserActivity
 import com.jefryjacky.core.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +20,9 @@ class HomeActivity:BaseActivity<ActivityHomeBinding>() {
     private fun initView(){
         binding.button.setOnClickListener {
             ChangePasswordActivity.navigate(this)
+        }
+        binding.buttonUpdateProfile.setOnClickListener {
+            UpdateUserActivity.navigate(this, true)
         }
     }
 

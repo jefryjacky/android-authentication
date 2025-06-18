@@ -12,11 +12,14 @@ class GetUserUseCase @Inject constructor(
 
     fun execute(callback:Callback){
             isLogin {
+                callback.loading(true)
                 disposables.add(userRepository.getUser()
                     .observeOn(schedulers.mainThread())
                     .subscribe({
+                        callback.loading(false)
                         callback.success(it)
                     }, {
+                        callback.loading(false)
                         checkError(it)
                     })
                 )

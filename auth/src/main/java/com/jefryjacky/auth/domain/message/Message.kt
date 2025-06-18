@@ -13,4 +13,5 @@ interface Message {
     fun messageErrorsResetPasswordLinkInvalid():String
     fun messageWrongPassword():String
     fun messagePasswordIsNotSameWithAbove(): String
+    fun messageErrorEmptyDisplayName(): String
 }
