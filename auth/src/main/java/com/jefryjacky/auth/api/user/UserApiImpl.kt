@@ -1,6 +1,7 @@
 package com.jefryjacky.auth.api.user
 
 import android.util.Log
+import com.jefryjacky.auth.api.user.request.UpdateUserRequest
 import com.jefryjacky.auth.domain.entity.User
 import com.jefryjacky.auth.domain.entity.UserToken
 import com.jefryjacky.auth.domain.repository.api.UserApi
@@ -91,5 +92,10 @@ class UserApiImpl @Inject constructor(
         otp: String
     ): Completable {
         return userService.updatePasswordByOtp(email, password, otp)
+    }
+
+    override fun updateUser(user: User): Completable {
+        val request = UpdateUserRequest.create(user)
+        return userService.updateUserRequest(request)
     }
 }

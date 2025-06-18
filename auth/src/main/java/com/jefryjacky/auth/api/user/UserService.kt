@@ -1,13 +1,16 @@
 package com.jefryjacky.auth.api.user
 
+import com.jefryjacky.auth.api.user.request.UpdateUserRequest
 import io.reactivex.Single
 import com.jefryjacky.auth.api.user.response.TokenResponse
 import com.jefryjacky.auth.api.user.response.UserResponse
 import io.reactivex.Completable
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface UserService {
 
@@ -65,4 +68,7 @@ interface UserService {
     @POST("/api/password/update/otp")
     @FormUrlEncoded
     fun updatePasswordByOtp(@Field("email") email: String, @Field("password") password:String, @Field("otp") otp:String): Completable
+
+    @PUT("/api/user/update")
+    fun updateUserRequest(@Body request: UpdateUserRequest): Completable
 }

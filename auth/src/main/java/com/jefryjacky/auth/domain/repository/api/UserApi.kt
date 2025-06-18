@@ -20,4 +20,5 @@ interface UserApi {
     fun verifyEmailOtp(email:String, otp:String): Single<UserToken>
     fun requestChangePasswordOtp(email:String):Completable
     fun updatePasswordByOtp(email:String, password:String, otp:String):Completable
+    fun updateUser(user: User):Completable
 }

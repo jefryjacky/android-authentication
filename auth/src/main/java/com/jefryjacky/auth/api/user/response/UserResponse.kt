@@ -8,13 +8,16 @@ data class UserResponse(
     val userId: Long = 0,
     @SerializedName("email")
     val email: String,
+    @SerializedName("display_name")
+    val displayName: String,
     @SerializedName("email_verified")
     val emailverified:Boolean
 ){
     fun toUser():User{
         return User(
             userId,
-            email
+            email,
+            displayName = displayName
         )
     }
 }

@@ -132,4 +132,9 @@ class UserRepository @Inject constructor(
         return userApi.updatePasswordByOtp(email, password, otp)
             .subscribeOn(schedulers.netWorkThread())
     }
+
+    fun updateUser(user: User):Completable{
+        return userApi.updateUser(user)
+            .subscribeOn(schedulers.netWorkThread())
+    }
 }
