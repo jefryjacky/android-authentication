@@ -15,22 +15,23 @@ class LoginGoogleUseCase @Inject constructor(
 ): BaseUseCase() {
 
     fun execute(input: Input, callback: Callback){
-        if(canExecute(input, callback))
-        disposables.add(
-            userRepository.loginGoogle(input.token)
-                .flatMap {
-                    userRepository.getUser()
-                }
-                .doAfterTerminate {
-                    executing = false
-                }.observeOn(schedulers.mainThread())
-                .subscribe({
+        if(canExecute(input, callback)) {
+            disposables.add(
+                userRepository.loginGoogle(input.token)
+                    .flatMap {
+                        userRepository.getUser()
+                    }
+                    .doAfterTerminate {
+                        executing = false
+                    }.observeOn(schedulers.mainThread())
+                    .subscribe({
                         val output = Output(it)
                         callback.success(output)
-                },{
-                    checkError(it)
-                })
-        )
+                    }, {
+                        checkError(it)
+                    })
+            )
+        }
     }
 
     private fun canExecute(input: Input, callback: Callback):Boolean{

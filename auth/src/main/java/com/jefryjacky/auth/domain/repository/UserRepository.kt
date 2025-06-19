@@ -5,9 +5,12 @@ import com.jefryjacky.auth.domain.entity.UserToken
 import com.jefryjacky.core.domain.scheduler.Schedulers
 import com.jefryjacky.auth.domain.repository.api.UserApi
 import com.jefryjacky.auth.domain.repository.database.UserDatabase
+import com.jefryjacky.core.di.IoDispatcher
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,7 +18,8 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(
     private val userApi: UserApi,
     private val userDatabase: UserDatabase,
-    private val schedulers: Schedulers
+    private val schedulers: Schedulers,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ){
 
     fun login(email:String, password:String):Single<UserToken>{
@@ -136,5 +140,11 @@ class UserRepository @Inject constructor(
     fun updateUser(user: User):Completable{
         return userApi.updateUser(user)
             .subscribeOn(schedulers.netWorkThread())
+    }
+
+    suspend fun deleteUser(){
+        withContext(ioDispatcher) {
+            userDatabase.deleteAll()
+        }
     }
 }

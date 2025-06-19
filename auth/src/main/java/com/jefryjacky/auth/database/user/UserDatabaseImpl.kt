@@ -20,4 +20,8 @@ class UserDatabaseImpl @Inject constructor(
     override fun getToken(): UserToken? {
         return userDao.getUserToken()?.toUserToken()
     }
+
+    override fun deleteAll() {
+        userDao.deleteAll()
+    }
 }

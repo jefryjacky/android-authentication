@@ -34,6 +34,12 @@ abstract class BaseUseCase {
         data class UNKNOWN_ERROR(val message:String): CommonError()
     }
 
+    sealed interface Result {
+        data class Success<T>(val data:T): Result
+        data class Loading(val isLoading: Boolean): Result
+        data class Error(val errors: List<BaseUseCase.Error>): Result
+    }
+
     fun clear(){
         disposables.clear()
     }

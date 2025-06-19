@@ -5,4 +5,5 @@ import com.jefryjacky.auth.domain.entity.UserToken
 interface UserDatabase {
     fun saveToken(token: UserToken)
     fun getToken():UserToken?
+    fun deleteAll()
 }

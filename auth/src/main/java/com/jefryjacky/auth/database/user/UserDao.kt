@@ -1,6 +1,7 @@
 package com.jefryjacky.auth.database.user
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
@@ -12,4 +13,6 @@ interface UserDao {
     fun saveUserToken(userToken: UserTokenDb)
     @Query("SELECT * FROM UserTokenDb WHERE id = 1")
     fun getUserToken():UserTokenDb?
+    @Query("DELETE FROM UserTokenDb WHERE id = 1")
+    fun deleteAll()
 }
