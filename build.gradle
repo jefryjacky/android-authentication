@@ -4,7 +4,6 @@ buildscript {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven{url = "https://jitpack.io"}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.10.1'
@@ -23,7 +22,7 @@ task clean(type: Delete) {
 }
 
 ext{
-    minSdkVersion = 24
+    minSdkVersion = 21
     targetSdkVersion = 35
     compileSdkVersion = 35
 

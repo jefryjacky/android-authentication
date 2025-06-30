@@ -118,7 +118,6 @@ dependencies {
 
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
     implementation "androidx.lifecycle:lifecycle-runtime-compose:2.9.0"
-    implementation "com.github.LottieFiles:dotlottie-android:0.5.0"
 }
 
 apply from:"$rootDir/auth-gradle-mvn-push.gradle"

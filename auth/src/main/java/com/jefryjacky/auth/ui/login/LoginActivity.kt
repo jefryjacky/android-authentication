@@ -12,9 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.authentication.design.setVisibility
-import com.dotlottie.dlplayer.Mode
 import com.jefryjacky.auth.AuthConfig
-import com.jefryjacky.auth.BuildConfig
 import com.jefryjacky.core.base.BaseActivity
 import com.jefryjacky.auth.R
 import com.jefryjacky.auth.config.Config
@@ -22,9 +20,7 @@ import com.jefryjacky.auth.databinding.ActivityLoginBinding
 import com.jefryjacky.auth.ui.forgotpassword.ForgotPasswordActivity
 import com.jefryjacky.auth.ui.forgotpasswordbyotp.ForgotPasswordByOtpActivity
 import com.jefryjacky.auth.ui.register.RegisterActivity
-import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity: BaseActivity<ActivityLoginBinding>() {
@@ -92,17 +88,6 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>() {
         binding.password.addTextChangedListener {
             binding.inputLayoutPassword.error = ""
         }
-
-        val config = com.lottiefiles.dotlottie.core.model.Config.Builder()
-            .autoplay(true)
-            .speed(1f)
-            .loop(true)
-            .source(DotLottieSource.Asset("login.json"))
-            .playMode(Mode.FORWARD)
-            .useFrameInterpolation(true)
-            .build()
-//
-        binding.lottieView.load(config)
 
         binding.signup.setOnClickListener {
             RegisterActivity.navigate(this)

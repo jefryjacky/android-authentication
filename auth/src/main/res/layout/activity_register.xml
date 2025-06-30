@@ -15,18 +15,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.lottiefiles.dotlottie.core.widget.DotLottieAnimation
-                android:id="@+id/lottie_view"
-                android:layout_width="match_parent"
-                app:dotLottie_autoplay="true"
-                app:dotLottie_loop="true"
-                app:dotLottie_playMode="normal"
-                app:dotLottie_useFrameInterpolation="true"
-                app:dotLottie_speed="1"
-                app:dotLottie_src="login.json"
-                android:layout_marginBottom="16dp"
-                android:layout_height="200dp" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
