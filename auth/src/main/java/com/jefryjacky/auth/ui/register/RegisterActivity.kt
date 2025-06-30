@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.authentication.design.setVisibility
+import com.dotlottie.dlplayer.Mode
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -16,6 +17,7 @@ import com.jefryjacky.auth.R
 import com.jefryjacky.core.base.BaseActivity
 import com.jefryjacky.auth.databinding.ActivityRegisterBinding
 import com.jefryjacky.auth.ui.login.LoginRoute
+import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -47,6 +49,16 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val config = com.lottiefiles.dotlottie.core.model.Config.Builder()
+            .autoplay(true)
+            .speed(1f)
+            .loop(true)
+            .source(DotLottieSource.Asset("register.json"))
+            .playMode(Mode.FORWARD)
+            .useFrameInterpolation(true)
+            .build()
+//
+        binding.lottieView.load(config)
         initObserver()
         initClickListener()
     }
