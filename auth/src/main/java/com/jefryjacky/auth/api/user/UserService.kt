@@ -24,7 +24,7 @@ interface UserService {
 
     @POST("/api/oauth/token")
     @FormUrlEncoded
-    fun refreshToken(@Field("grant_type") grantType:String, @Field("token") token:String):Single<TokenResponse>
+    fun refreshToken(@Field("grant_type") grantType:String, @Field("refresh_token") token:String):Single<TokenResponse>
 
     @POST("/api/user/register")
     @FormUrlEncoded

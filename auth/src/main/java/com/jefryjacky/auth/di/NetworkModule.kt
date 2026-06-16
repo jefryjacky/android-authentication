@@ -5,6 +5,7 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.jefryjacky.auth.AuthConfig
 import com.jefryjacky.auth.BuildConfig
+import com.jefryjacky.auth.api.user.response.TokenResponse
 import com.jefryjacky.auth.config.Config
 import com.jefryjacky.auth.domain.repository.database.UserDatabase
 import com.jefryjacky.core.domain.scheduler.Schedulers
@@ -13,7 +14,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.FormBody
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -27,7 +30,7 @@ class NetworkModule {
 
     @Provides
     @Named(Config.RETROFIT_USER)
-    fun provideOkHttpClient(context: Context, userDatabase: UserDatabase): OkHttpClient {
+    fun provideOkHttpClient(context: Context, userDatabase: UserDatabase, tokenAuthenticator: TokenAuthenticator): OkHttpClient {
 
         val builder = OkHttpClient.Builder()
 
@@ -42,14 +45,17 @@ class NetworkModule {
         }
 
         builder.addInterceptor {
-            val builder = it.request().newBuilder()
-            builder.addHeader("API-KEY", AuthConfig.API_KEY)
+            val requestBuilder = it.request().newBuilder()
+            requestBuilder.addHeader("API-KEY", AuthConfig.API_KEY)
             val token = userDatabase.getToken()
             if(!token?.accessToken.isNullOrBlank()) {
-                builder.addHeader("Authorization", token!!.accessToken)
+                requestBuilder.addHeader("Authorization", token!!.accessToken)
             }
-            it.proceed(builder.build())
+            it.proceed(requestBuilder.build())
         }.readTimeout(25, TimeUnit.SECONDS)
+
+        builder.authenticator(tokenAuthenticator)
+
         return builder.build()
     }
 
